@@ -185,11 +185,10 @@ public class TaskServiceImpl implements ITaskService {
     }
 
     @Override
-    public Optional<TaskDTO> findTaskById(Long id) {
-        return Optional.ofNullable(taskDAO.findTaskById(id)
-                //el metodo para convertir la entidad el dto lo implementaremos dentro del map
-                .map(taskMapper::toDto) //esto es una referencia a metodo, es lo mismo que hacer .map(task -> taskMapper.toDto(task))
-                .orElseThrow(() -> new ResourceNotFoundException("Tarea no encontrada con el id: " + id)));
+    public TaskDTO findTaskById(Long id) {
+        return taskDAO.findTaskById(id)
+                .map(taskMapper::toDto)
+                .orElseThrow(() -> new ResourceNotFoundException("Tarea no encontrada con el id: " + id));
     }
 
 

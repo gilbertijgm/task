@@ -33,7 +33,7 @@ public interface ITaskService {
     List<TaskDTO> findAllTask();
 
     //Metodo para buescar recurso por id
-    Optional<TaskDTO> findTaskById(Long id);
+    TaskDTO findTaskById(Long id);
 
     //Metodo para filtrar tareas por estado
     Page<TaskDTO> findByStatus(Pageable pageable,Task.Status status);

@@ -44,11 +44,11 @@ public class TaskController {
         TaskDTO task = taskService.saveTask(taskDTO);
 
         ApiResponse<TaskDTO> response = new ApiResponse<>(201, "Tarea Creada con Exito" , task);
-        return ResponseEntity.created(new URI("/api/task/save/")).body(response);
+        return ResponseEntity.created(new URI("/api/task/" + taskDTO.getIdTask())).body(response);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<?> update(@RequestParam(required = false) Long id, @RequestBody TaskDTO taskDTO ) throws URISyntaxException {
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody TaskDTO taskDTO ) throws URISyntaxException {
 
         TaskDTO task = taskService.updateTask(taskDTO, id);
 
@@ -57,8 +57,8 @@ public class TaskController {
         return ResponseEntity.ok(response);
     }
 
-    @PatchMapping("/update-status")
-    public ResponseEntity<?> actualizarEstado(@RequestParam Long id, @RequestBody StatusUpdateDTO dto) {
+    @PatchMapping("/update-status/{id}")
+    public ResponseEntity<?> actualizarEstado(@PathVariable Long id, @RequestBody StatusUpdateDTO dto) {
         try {
             TaskDTO estadoActualizado = taskService.updateStatus(dto.getStatus(), id );
 
@@ -76,8 +76,8 @@ public class TaskController {
         return ResponseEntity.created(new URI("/api/task/save/")).body("Tareas guardadas correctamente");
     }
 
-    @DeleteMapping("/deleteById")
-    public ResponseEntity<?> deleteById(@RequestParam(required = false) Long id){
+    @DeleteMapping("/deleteById/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable Long id){
         taskService.deleteTaskById(id);
 
         return ResponseEntity.ok("Registro Eliminado");
@@ -124,24 +124,11 @@ public class TaskController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/findById")
-    public ResponseEntity<?> findById(@RequestParam(required = false) Long id){
-        //verificamos si el id no es nulo o vacio
-        if (id == null ) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El ID proporcionado no puede ser nulo o vacio");
-        }
-
-        try {
-            Optional<TaskDTO> task = taskService.findTaskById(id);
-
-            ApiResponse<Optional<TaskDTO>> response = new ApiResponse<>(200, "Tarea Encontrada" , task);
-            return ResponseEntity.ok(response);
-        } catch (NumberFormatException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El ID proporcionado no es válido.");
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.notFound().build();
-        }
-
+    @GetMapping("/findById/{id}")
+    public ResponseEntity<ApiResponse<TaskDTO>> findById(@PathVariable Long id) {
+        TaskDTO task = taskService.findTaskById(id); // lanza excepción si no existe
+        ApiResponse<TaskDTO> response = new ApiResponse<>(200, "Tarea encontrada", task);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/findAll")
