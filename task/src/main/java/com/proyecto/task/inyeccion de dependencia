@@ -1,0 +1,32 @@
+Inyección por constructor
+ventajas:
+✅ Recomendado
+- Permite campos final
+- Mejor para pruebas unitarias
+- Dependencias explícitas
+- Facilita la inmutabilidad
+- Compatible con Lombok (@RequiredArgsConstructor)
+
+desventeajas
+- Un poco más verboso (pero vale la pena)
+
+
+@Autowired
+ventajas
+- Más rápido de escribir
+- Código más corto
+
+desventajas
+- Menos control
+- Difícil de testear
+- No funciona bien con campos final
+- Menor claridad de dependencias
+
+@Service
+public class TareaService {
+
+    @Autowired
+    private TareaRepository tareaRepository;
+}
+Esto es válido, pero oculta la dependencia.
+El objeto "simplemente la tiene",y si cambiás la lógica o hacés pruebas, es más difícil inyectar una versión diferente del TareaRepository.
