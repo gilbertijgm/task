@@ -63,8 +63,8 @@ public class TaskDAOImpl implements ITaskDAO {
 
     //Metodo para listar todos los recursos con paginacion
     @Override
-    public Page<Task> tasks(Pageable pageable) {
-        Page<Task> pageTask = taskRepository.findAll(pageable);
+    public Page<Task> tasks(String estado, String palabraClave, LocalDate fechaInicio, LocalDate fechaFin, boolean vencidas, boolean vencenHoy, Pageable pageable) {
+        Page<Task> pageTask = taskRepository.buscarTareasConFiltros(estado, palabraClave, fechaInicio, fechaFin, vencidas, vencenHoy, pageable);
 
         return pageTask;
     }

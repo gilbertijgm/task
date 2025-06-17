@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface TaskRepository extends JpaRepository<Task, Long> {
-
+public interface TaskRepository extends JpaRepository<Task, Long>, TaskRepositoryCustom {
+    
     //Metodo para obtener todas las tareas aplicando paginacion
     Page<Task> findAll(Pageable pageable);
 

@@ -19,10 +19,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
@@ -174,6 +171,14 @@ public class GlobalExceptionHandler {
         );
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
+    /**
+     * Manejador para recursos no registrados. Lanza tu excepción personalizada.
+     */
+    @ExceptionHandler(NoContentException.class)
+    public ResponseEntity<ApiResponse<?>> handleNoContent(NoContentException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ApiResponse<>(404, ex.getMessage(), Collections.emptyList()));
     }
 
     /**

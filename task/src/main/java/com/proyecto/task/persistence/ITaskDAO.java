@@ -26,7 +26,7 @@ public interface ITaskDAO {
     Task statusUpdate(Task task);
 
     //Metodo para listar todos los recursos con paginacion
-    Page<Task> tasks(Pageable pageable);
+    Page<Task> tasks(String estado, String palabraClave, LocalDate fechaInicio, LocalDate fechaFin, boolean vencidas, boolean vencenHoy,Pageable pageable);
 
     //Metodo para listar todos los recursos
     List<Task> findAllTask();

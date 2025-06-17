@@ -27,7 +27,7 @@ public interface ITaskService {
     TaskDTO updateStatus(String newStatus, Long id);
 
     //Metodo para listar todos los recursos con paginacion
-    Page<TaskDTO> tasks(Pageable pageable);
+    Page<TaskDTO> tasks(String estado, String palabraClave, LocalDate fechaInicio, LocalDate fechaFin, boolean vencidas, boolean vencenHoy,Pageable pageable);
 
     //Metodo para listar todos los recursos
     List<TaskDTO> findAllTask();

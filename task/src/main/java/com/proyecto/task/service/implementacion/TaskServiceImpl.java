@@ -157,9 +157,9 @@ public class TaskServiceImpl implements ITaskService {
     }
 
     @Override
-    public Page<TaskDTO> tasks(Pageable pageable) {
+    public Page<TaskDTO> tasks(String estado, String palabraClave, LocalDate fechaInicio, LocalDate fechaFin, boolean vencidas, boolean vencenHoy, Pageable pageable) {
         //Obetenemos el listado de tareas paginadas
-        Page<Task> taskPage = taskDAO.tasks(pageable);
+        Page<Task> taskPage = taskDAO.tasks(estado, palabraClave, fechaInicio, fechaFin, vencidas, vencenHoy, pageable);
 
         //Convertimos las entidades en DTO usando el mapper creado con .getContent() que trae solo las tareas y no la informacion de paginacion
         List<TaskDTO> dtoList = taskMapper.toDtoList(taskPage.getContent());

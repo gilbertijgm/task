@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -86,12 +87,18 @@ public class TaskController {
     @GetMapping("/tasks")
     public ResponseEntity<PagedResponse<TaskDTO>> tasks(@RequestParam(defaultValue = "0") int page, // Número de página (por defecto 0)
                                                         @RequestParam(defaultValue = "5")int size,  // Tamaño de página (por defecto 5 elementos por página)
-                                               HttpServletRequest request // Necesario para armar las URLs base en los enlaces
+                                                        @RequestParam(required = false) String estado,
+                                                        @RequestParam(required = false) String palabraClave,
+                                                        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaInicio,
+                                                        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaFin,
+                                                        @RequestParam(required = false, defaultValue = "false") boolean vencidas,
+                                                        @RequestParam(required = false, defaultValue = "false") boolean vencenHoy,
+                                                        HttpServletRequest request // Necesario para armar las URLs base en los enlaces
     ){
         // Creamos un objeto Pageable con la página y el tamaño
         Pageable pageable = PageRequest.of(page, size);
         // Obtenemos la página de tareas desde el servicio
-        Page<TaskDTO> pageResult = taskService.tasks(pageable);
+        Page<TaskDTO> pageResult = taskService.tasks(estado, palabraClave, fechaInicio, fechaFin, vencidas, vencenHoy, pageable);
 
         // Creamos el objeto con los datos de paginación
         Pagination pagination = new Pagination(
