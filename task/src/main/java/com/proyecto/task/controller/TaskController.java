@@ -7,6 +7,7 @@ import com.proyecto.task.response.ApiResponse;
 import com.proyecto.task.response.PagedResponse;
 import com.proyecto.task.response.Pagination;
 import com.proyecto.task.service.ITaskService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ import java.util.*;
 @RestController
 @RequestMapping("/api/task")
 @RequiredArgsConstructor
+@Tag(name = "Task", description = "Endpoint para las diferentes operaciones")
 public class TaskController {
 
 //    @Autowired

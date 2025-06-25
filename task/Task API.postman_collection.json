@@ -1,0 +1,330 @@
+{
+	"info": {
+		"_postman_id": "7a3dd715-2669-4566-a835-4f1160c56105",
+		"name": "Task API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "31647045"
+	},
+	"item": [
+		{
+			"name": "Save",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\" : \"Preparar presentación\",\r\n    \"description\" : \"Armar diapositivas para la reunión del viernes\",\r\n    \"expirationDate\" : \"2025-06-30\",\r\n    \"status\" : \"Pendiente\"\r\n\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/task/save"
+			},
+			"response": []
+		},
+		{
+			"name": "Save MultiTask",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  {\r\n    \"title\": \"Revisar documentación de API\",\r\n    \"description\": \"Leer la documentación técnica del nuevo microservicio\",\r\n    \"expirationDate\": \"2025-05-23\",\r\n    \"status\": \"Pendiente\"\r\n  },\r\n  {\r\n    \"title\": \"Planificar sprints\",\r\n    \"description\": \"Organizar tareas para el próximo ciclo de desarrollo\",\r\n    \"expirationDate\": \"2025-05-25\",\r\n    \"status\": \"Pendiente\"\r\n  },\r\n  {\r\n    \"title\": \"Configurar servidor local\",\r\n    \"description\": \"Instalar dependencias y configurar entorno de pruebas\",\r\n    \"expirationDate\": \"2025-05-27\",\r\n    \"status\": \"Pendiente\"\r\n  },\r\n  {\r\n    \"title\": \"Crear base de datos de pruebas\",\r\n    \"description\": \"Diseñar y montar una BD para testeo\",\r\n    \"expirationDate\": \"2025-05-29\",\r\n    \"status\": \"Pendiente\"\r\n  },\r\n  {\r\n    \"title\": \"Escribir casos de prueba\",\r\n    \"description\": \"Definir pruebas unitarias para los servicios existentes\",\r\n    \"expirationDate\": \"2025-06-01\",\r\n    \"status\": \"Pendiente\"\r\n  },\r\n  {\r\n    \"title\": \"Desarrollar módulo de autenticación\",\r\n    \"description\": \"Implementar login y control de acceso con Spring Security\",\r\n    \"expirationDate\": \"2025-05-21\",\r\n    \"status\": \"Desarrollo\"\r\n  },\r\n  {\r\n    \"title\": \"Refactorizar código legado\",\r\n    \"description\": \"Optimizar métodos antiguos en el módulo de facturación\",\r\n    \"expirationDate\": \"2025-05-26\",\r\n    \"status\": \"Desarrollo\"\r\n  },\r\n  {\r\n    \"title\": \"Investigar nuevas tecnologías\",\r\n    \"description\": \"Explorar GraphQL para futuras integraciones\",\r\n    \"expirationDate\": \"2025-05-28\",\r\n    \"status\": \"Desarrollo\"\r\n  },\r\n  {\r\n    \"title\": \"Actualizar documentación del proyecto\",\r\n    \"description\": \"Añadir información reciente sobre endpoints y estructuras\",\r\n    \"expirationDate\": \"2025-06-02\",\r\n    \"status\": \"Desarrollo\"\r\n  },\r\n  {\r\n    \"title\": \"Diseñar pantalla de dashboard\",\r\n    \"description\": \"Crear mockups para el panel principal del sistema\",\r\n    \"expirationDate\": \"2025-06-04\",\r\n    \"status\": \"Desarrollo\"\r\n  },\r\n  {\r\n    \"title\": \"Migrar datos del sistema anterior\",\r\n    \"description\": \"Cargar datos históricos a la nueva base de datos\",\r\n    \"expirationDate\": \"2025-05-20\",\r\n    \"status\": \"Completada\"\r\n  },\r\n  {\r\n    \"title\": \"Configurar CI/CD\",\r\n    \"description\": \"Integrar el proyecto con Jenkins y GitHub Actions\",\r\n    \"expirationDate\": \"2025-05-18\",\r\n    \"status\": \"Completada\"\r\n  },\r\n  {\r\n    \"title\": \"Pruebas con usuarios finales\",\r\n    \"description\": \"Recolectar feedback sobre la nueva versión\",\r\n    \"expirationDate\": \"2025-05-15\",\r\n    \"status\": \"Completada\"\r\n  },\r\n  {\r\n    \"title\": \"Limpieza del repositorio\",\r\n    \"description\": \"Eliminar ramas antiguas y organizar el historial\",\r\n    \"expirationDate\": \"2025-05-19\",\r\n    \"status\": \"Completada\"\r\n  },\r\n  {\r\n    \"title\": \"Presentación del proyecto\",\r\n    \"description\": \"Exponer avances ante el equipo de dirección\",\r\n    \"expirationDate\": \"2025-05-17\",\r\n    \"status\": \"Completada\"\r\n  }\r\n]\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/task/bulk"
+			},
+			"response": []
+		},
+		{
+			"name": "Find All",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/task/findAll"
+			},
+			"response": []
+		},
+		{
+			"name": "Find All Pageable",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response has required fields\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData).to.have.all.keys('content', 'pageable', 'totalPages', 'totalElements', 'last', 'size', 'number', 'sort', 'numberOfElements', 'first', 'empty');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Content array is present and its length is greater than or equal to zero\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.content).to.exist.and.to.be.an('array');\r",
+							"    pm.expect(responseData.content.length).to.be.at.least(0, \"The content array should have a length of at least zero\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate the structure of the content objects\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.content).to.be.an('array');\r",
+							"\r",
+							"    responseData.content.forEach(function(item) {\r",
+							"        pm.expect(item).to.be.an('object');\r",
+							"        pm.expect(item).to.have.all.keys('idTask', 'title', 'description', 'expirationDate', 'status');\r",
+							"        pm.expect(item.idTask).to.be.a('number');\r",
+							"        pm.expect(item.title).to.be.a('string');\r",
+							"        pm.expect(item.description).to.be.a('string');\r",
+							"        pm.expect(item.expirationDate).to.be.a('string');\r",
+							"        pm.expect(item.status).to.be.a('string');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/task/tasks?estado=Completada",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"task",
+						"tasks"
+					],
+					"query": [
+						{
+							"key": "estado",
+							"value": "Completada"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/task/findById/16"
+			},
+			"response": []
+		},
+		{
+			"name": "udpate",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\" : \"Preparar presentación\",\r\n    \"description\" : \"Armar diapositivas para la reunión del viernes\",\r\n    \"expirationDate\" : \"2025-05-12\",\r\n    \"status\" : \"Desarrollo\"\r\n\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/task/update/17"
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/task/deleteById?id=16",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"task",
+						"deleteById"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "16"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fin By status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/task/findByStatus?status=Pendiente",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"task",
+						"findByStatus"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "Pendiente"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tareas Vencidas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/task/vencidas"
+			},
+			"response": []
+		},
+		{
+			"name": "tareas vencen hoy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/task/vencen-hoy"
+			},
+			"response": []
+		},
+		{
+			"name": "tareas por rango de fechas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/task/por-fecha?desde=2025-05-20&hasta=2025-06-01",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"task",
+						"por-fecha"
+					],
+					"query": [
+						{
+							"key": "desde",
+							"value": "2025-05-20"
+						},
+						{
+							"key": "hasta",
+							"value": "2025-06-01"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar por palabra clave",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/task/buscar?texto=limpieza",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"task",
+						"buscar"
+					],
+					"query": [
+						{
+							"key": "texto",
+							"value": "limpieza"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Status Update",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"status\": \"Completada\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/task/update-status?id=6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"task",
+						"update-status"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "6"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
